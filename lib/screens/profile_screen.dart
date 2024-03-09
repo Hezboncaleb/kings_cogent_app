@@ -8,20 +8,25 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Profile',
+          'PROFILE',
           style: TextStyle(
             fontWeight: FontWeight.bold, // Make the font bold
+            color: Colors.black, // Set the text color to black
           ),
         ),
+        backgroundColor:
+            Colors.amberAccent, // Set the background color to Amber Accent
+        centerTitle: true, // Center the title text horizontally
+        elevation: 0, // Remove the elevation
         toolbarHeight: 60, // Increase the height of the AppBar
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(0),
+          child: Divider(color: Colors.transparent, height: 0),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.zero,
-            child: const Divider(height: 5),
-          ),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),

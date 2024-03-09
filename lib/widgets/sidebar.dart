@@ -22,9 +22,10 @@ class SideBar extends StatelessWidget {
             ),
             child: const Center(
               child: Text(
-                'Menu',
+                'MENU',
                 style: TextStyle(
-                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                   fontSize: 24,
                 ),
               ),
