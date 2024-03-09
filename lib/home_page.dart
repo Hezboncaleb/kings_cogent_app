@@ -193,7 +193,7 @@ class LoanTile extends StatelessWidget {
       child: Card(
         color: const Color.fromARGB(255, 212, 210, 210),
         child: SizedBox(
-          height: 150,
+          height: 120,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

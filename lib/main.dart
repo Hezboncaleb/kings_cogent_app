@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kings_cogent_app/home_page.dart';
+import 'package:kings_cogent_app/sign_in_screen.dart';
+import 'package:kings_cogent_app/sign_up_page.dart';
 
 void main() {
   runApp(const LoanApp());
@@ -17,6 +19,8 @@ class LoanApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false, // Remove debug banner
       home: const HomePage(),
+      // home: const SignUpPage(),
+      // home: const SignInScreen(),
     );
   }
 }
