@@ -53,17 +53,47 @@ class HomePage extends StatelessWidget {
                     [
                       CarouselSlider(
                         items: [
-                          Image.asset(
-                            'assets/images/2.jpg',
-                            fit: BoxFit.fill,
+                          Container(
+                            width: 700, // Set width to 500 pixels
+                            child: Card(
+                              elevation: 4, // Add elevation for a shadow effect
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    10), // Rounded edges for the card
+                              ),
+                              child: Image.asset(
+                                'assets/images/2.jpg',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
-                          Image.asset(
-                            'assets/images/3.jpg',
-                            fit: BoxFit.fill,
+                          Container(
+                            width: 700, // Set width to 500 pixels
+                            child: Card(
+                              elevation: 4, // Add elevation for a shadow effect
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    10), // Rounded edges for the card
+                              ),
+                              child: Image.asset(
+                                'assets/images/3.jpg',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
-                          Image.asset(
-                            'assets/images/4.jpg',
-                            fit: BoxFit.fill,
+                          Container(
+                            width: 700, // Set width to 500 pixels
+                            child: Card(
+                              elevation: 4, // Add elevation for a shadow effect
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    10), // Rounded edges for the card
+                              ),
+                              child: Image.asset(
+                                'assets/images/4.jpg',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
                         ],
                         options: CarouselOptions(
@@ -81,6 +111,8 @@ class HomePage extends StatelessWidget {
                           aspectRatio: 2.0,
                           onPageChanged: (index, reason) {},
                           scrollPhysics: const BouncingScrollPhysics(),
+                          padEnds:
+                              true, // Pushes the left and right edges to the screen edges
                         ),
                       ),
                       GridView.count(
@@ -131,10 +163,10 @@ class LoanTile extends StatefulWidget {
   final String imagePath;
 
   const LoanTile({
-    super.key,
+    Key? key,
     required this.title,
     required this.imagePath,
-  });
+  }) : super(key: key);
 
   @override
   _LoanTileState createState() => _LoanTileState();
@@ -219,7 +251,7 @@ class _LoanTileState extends State<LoanTile> {
         child: Card(
           color: Colors.white,
           child: SizedBox(
-            height: 100,
+            height: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,9 +262,9 @@ class _LoanTileState extends State<LoanTile> {
                   opacity: opacityLevel,
                   child: Container(
                     width: double.infinity,
-                    height: 200,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.zero,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10), // Rounded edges
                     ),
                     child: Image.asset(
                       widget.imagePath,
@@ -246,14 +278,22 @@ class _LoanTileState extends State<LoanTile> {
                   duration: const Duration(milliseconds: 500),
                   opacity: opacityLevel,
                   child: Container(
-                    color: Colors.black,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft:
+                            Radius.circular(10), // Rounded bottom-left corner
+                        bottomRight:
+                            Radius.circular(10), // Rounded bottom-right corner
+                      ),
+                      color: Colors.black,
+                    ),
                     padding: const EdgeInsets.all(8),
                     child: Center(
                       child: Text(
                         widget.title,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 17.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.amberAccent,
                         ),

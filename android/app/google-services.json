@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "105024389768",
+    "project_id": "kings-cogent-ltd",
+    "storage_bucket": "kings-cogent-ltd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105024389768:android:04a64120c385c8a215553d",
+        "android_client_info": {
+          "package_name": "com.example.kings_cogent_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTGqfOfm1ImcNa5cAKMo9slf18wxlA6dU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

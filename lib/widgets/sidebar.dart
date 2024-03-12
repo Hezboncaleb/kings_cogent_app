@@ -11,7 +11,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.of(context).size.width * 0.4,
+      width: MediaQuery.of(context).size.width * 0.5,
       child: ListView(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
         children: <Widget>[
