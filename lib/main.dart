@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kings_cogent_app/home_page.dart';
 import 'package:kings_cogent_app/screens/splash_screen.dart';
@@ -22,9 +23,9 @@ class LoanApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       debugShowCheckedModeBanner: false, // Remove debug banner
-      // home: const HomePage(),
+      home: HomePage(),
       // home: const SplashScreen(),
-      home: const SignUpPage(),
+      // home: const SignUpPage(),
       // home: const SignInScreen(),
     );
   }

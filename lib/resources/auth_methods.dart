@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kings_cogent_app/models/user.dart' as model;
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -48,23 +49,28 @@ class AuthMethods {
             email: email, password: password);
         print(cred.user!.uid);
         // add user to our datebase
-        await _firestore.collection('users').doc(cred.user!.uid).set({
-          'firstname': firstname,
-          'lastname': lastname,
-          'email': email,
-          'uid': cred.user!.uid,
-          'city': city,
-          'subcounty': subcounty,
-          'parish': parish,
-          'village': village,
-          'telephonenumber1': telephonenumber1,
-          'telephonenumber2': telephonenumber2,
-          'nationalIDnumber': nationalIDnumber,
-          'dateofbirth': dateofbirth,
-          'address': address,
-          'nextofkin1': nextofkin1,
-          'nextofkin2': nextofkin2,
-        });
+
+        model.User user = model.User(
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          uid: cred.user!.uid,
+          city: city,
+          subcounty: subcounty,
+          parish: parish,
+          village: village,
+          telephonenumber1: telephonenumber1,
+          telephonenumber2: telephonenumber2,
+          nationalIDnumber: nationalIDnumber,
+          dateofbirth: dateofbirth,
+          address: address,
+          nextofkin1: nextofkin1,
+          nextofkin2: nextofkin2,
+        );
+
+        await _firestore.collection('users').doc(cred.user!.uid).set(
+              user.toJson(),
+            );
         res = "success";
       }
     } on FirebaseAuthException catch (err) {
@@ -75,6 +81,38 @@ class AuthMethods {
       }
     } catch (err) {
       res = err.toString();
+    }
+    return res;
+  }
+
+  // signing in user
+
+  // signing in user
+  Future<String> signinUser({
+    required String email,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    String res = "Some error Occurred";
+    try {
+      if (email.isNotEmpty &&
+          password.isNotEmpty &&
+          confirmPassword.isNotEmpty) {
+        // Check if password and confirm password match
+        if (password != confirmPassword) {
+          return 'Passwords do not match';
+        }
+        // Sign in user with email and password
+        await _auth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        res = "success";
+      } else {
+        res = "Please enter all the fields";
+      }
+    } catch (err) {
+      return err.toString();
     }
     return res;
   }

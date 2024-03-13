@@ -10,7 +10,7 @@ import 'package:kings_cogent_app/screens/school_fees_loan_screen.dart';
 import 'package:kings_cogent_app/widgets/sidebar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final CarouselController _carouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,117 +43,148 @@ class HomePage extends StatelessWidget {
         ],
       ),
       drawer: const SideBar(),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      CarouselSlider(
-                        items: [
-                          Container(
-                            width: 700, // Set width to 500 pixels
-                            child: Card(
-                              elevation: 4, // Add elevation for a shadow effect
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10), // Rounded edges for the card
+          Column(
+            children: [
+              Expanded(
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildListDelegate(
+                        [
+                          CarouselSlider(
+                            carouselController: _carouselController,
+                            items: [
+                              Container(
+                                width: 700,
+                                child: Card(
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/2.jpg',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                               ),
-                              child: Image.asset(
-                                'assets/images/2.jpg',
-                                fit: BoxFit.fill,
+                              Container(
+                                width: 700,
+                                child: Card(
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/3.jpg',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                               ),
+                              Container(
+                                width: 700,
+                                child: Card(
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/4.jpg',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            options: CarouselOptions(
+                              height: 200,
+                              viewportFraction: 1.0,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  const Duration(milliseconds: 800),
+                              enableInfiniteScroll: true,
+                              pauseAutoPlayOnTouch: true,
+                              reverse: false,
+                              scrollDirection: Axis.horizontal,
+                              enlargeCenterPage: true,
+                              aspectRatio: 2.0,
+                              onPageChanged: (index, reason) {},
+                              scrollPhysics: const BouncingScrollPhysics(),
+                              padEnds: true,
                             ),
                           ),
-                          Container(
-                            width: 700, // Set width to 500 pixels
-                            child: Card(
-                              elevation: 4, // Add elevation for a shadow effect
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10), // Rounded edges for the card
+                          GridView.count(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            crossAxisCount: 2,
+                            children: const [
+                              LoanTile(
+                                title: 'School Fees Loan',
+                                imagePath: 'assets/images/school fees.jpg',
                               ),
-                              child: Image.asset(
-                                'assets/images/3.jpg',
-                                fit: BoxFit.fill,
+                              LoanTile(
+                                title: 'Salary Loan',
+                                imagePath: 'assets/images/salary.jpg',
                               ),
-                            ),
-                          ),
-                          Container(
-                            width: 700, // Set width to 500 pixels
-                            child: Card(
-                              elevation: 4, // Add elevation for a shadow effect
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10), // Rounded edges for the card
+                              LoanTile(
+                                title: 'Emergency Loan',
+                                imagePath: 'assets/images/emergency.jpg',
                               ),
-                              child: Image.asset(
-                                'assets/images/4.jpg',
-                                fit: BoxFit.fill,
+                              LoanTile(
+                                title: 'Personal Loan',
+                                imagePath: 'assets/images/personal.jpg',
                               ),
-                            ),
+                              LoanTile(
+                                title: 'Agricultural Loan',
+                                imagePath: 'assets/images/Agricultrue.jpg',
+                              ),
+                              LoanTile(
+                                title: 'Business Loan',
+                                imagePath: 'assets/images/business.jpg',
+                              ),
+                            ],
                           ),
                         ],
-                        options: CarouselOptions(
-                          height: 200,
-                          viewportFraction: 1.0,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 3),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
-                          enableInfiniteScroll: true,
-                          pauseAutoPlayOnTouch: true,
-                          reverse: false,
-                          scrollDirection: Axis.horizontal,
-                          enlargeCenterPage: true,
-                          aspectRatio: 2.0,
-                          onPageChanged: (index, reason) {},
-                          scrollPhysics: const BouncingScrollPhysics(),
-                          padEnds:
-                              true, // Pushes the left and right edges to the screen edges
-                        ),
                       ),
-                      GridView.count(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        children: const [
-                          LoanTile(
-                            title: 'School Fees Loan',
-                            imagePath: 'assets/images/school fees.jpg',
-                          ),
-                          LoanTile(
-                            title: 'Salary Loan',
-                            imagePath: 'assets/images/salary.jpg',
-                          ),
-                          LoanTile(
-                            title: 'Emergency Loan',
-                            imagePath: 'assets/images/emergency.jpg',
-                          ),
-                          LoanTile(
-                            title: 'Personal Loan',
-                            imagePath: 'assets/images/personal.jpg',
-                          ),
-                          LoanTile(
-                            title: 'Agricultural Loan',
-                            imagePath: 'assets/images/Agricultrue.jpg',
-                          ),
-                          LoanTile(
-                            title: 'Business Loan',
-                            imagePath: 'assets/images/business.jpg',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 50,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildPreviousButton(_carouselController),
+                _buildNextButton(_carouselController),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildPreviousButton(CarouselController buttonController) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      onPressed: () {
+        buttonController.previousPage();
+      },
+    );
+  }
+
+  Widget _buildNextButton(CarouselController buttonController) {
+    return IconButton(
+      icon: Icon(Icons.arrow_forward_ios),
+      onPressed: () {
+        buttonController.nextPage();
+      },
     );
   }
 }

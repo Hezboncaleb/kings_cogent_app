@@ -10,7 +10,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.of(context).size.width * 0.5,
+      width: MediaQuery.of(context).size.width * 0.6, // Increase the width
       child: ListView(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
         children: <Widget>[
@@ -31,28 +31,31 @@ class SideBar extends StatelessWidget {
             ),
           ),
           const Divider(),
-          _buildListTileWithArrow(
+          _buildListTileWithIcon(
             title: 'Savings',
+            icon: Icons.account_balance,
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SavingsPage()),
+                MaterialPageRoute(builder: (context) => SavingsPage()),
               );
             },
           ),
           const Divider(),
-          _buildListTileWithArrow(
+          _buildListTileWithIcon(
             title: 'Loans',
+            icon: Icons.business,
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BorrowersPage()),
+                MaterialPageRoute(builder: (context) => const LoansPage()),
               );
             },
           ),
           const Divider(),
-          _buildListTileWithArrow(
+          _buildListTileWithIcon(
             title: 'Settings',
+            icon: Icons.settings,
             onTap: () {
               Navigator.push(
                 context,
@@ -61,8 +64,9 @@ class SideBar extends StatelessWidget {
             },
           ),
           const Divider(),
-          _buildListTileWithArrow(
+          _buildListTileWithIcon(
             title: 'More',
+            icon: Icons.more_horiz,
             onTap: () {
               Navigator.push(
                 context,
@@ -75,9 +79,12 @@ class SideBar extends StatelessWidget {
     );
   }
 
-  Widget _buildListTileWithArrow(
-      {required String title, required Function onTap}) {
+  Widget _buildListTileWithIcon(
+      {required String title,
+      required IconData icon,
+      required Function onTap}) {
     return ListTile(
+      leading: Icon(icon), // Icon on the left side
       title: Text(title),
       onTap: () => onTap(),
       trailing: const Icon(Icons.arrow_forward), // Arrow icon on the right side
