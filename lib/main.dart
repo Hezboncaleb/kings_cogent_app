@@ -22,9 +22,9 @@ class LoanApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       debugShowCheckedModeBanner: false, // Remove debug banner
-      home: const HomePage(),
+      // home: const HomePage(),
       // home: const SplashScreen(),
-      // home: const SignUpPage(),
+      home: const SignUpPage(),
       // home: const SignInScreen(),
     );
   }

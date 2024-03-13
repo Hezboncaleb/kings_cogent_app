@@ -38,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     horizontal: 20.0, vertical: 10.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Name or Phone Number',
+                    labelText: 'Enter your Email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),

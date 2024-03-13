@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kings_cogent_app/resources/auth_methods.dart';
 
 void main() {
   runApp(const SignUpApp());
 }
 
 class SignUpApp extends StatelessWidget {
-  const SignUpApp({super.key});
+  const SignUpApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +21,10 @@ class SignUpApp extends StatelessWidget {
 }
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -46,13 +47,12 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _nextOfKin2Controller = TextEditingController();
 
   bool _showPassword = false;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          // Removed the 'title' attribute to remove "Sign Up" from the AppBar
-          ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -108,23 +108,68 @@ class _SignUpPageState extends State<SignUpPage> {
             const SizedBox(height: 12.0),
             _buildTextField(_nextOfKin2Controller, 'Next of Kin 2'),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Handle sign-up button pressed
-                // You can access the entered values using the controllers
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amberAccent, // Amber accent color
-              ),
-              child: const Text(
-                'Sign Up',
-                style: TextStyle(color: Colors.white), // White text color
-              ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: _isLoading ? null : () => _signUp(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.amberAccent, // Amber accent color
+                  ),
+                  child: _isLoading
+                      ? SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                              color: Colors.white), // White text color
+                        ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _signUp() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      confirmpassword: _confirmPasswordController.text,
+      firstname: _firstNameController.text,
+      lastname: _lastNameController.text,
+      address: _addressController.text,
+      city: _cityController.text,
+      subcounty: _subCountyController.text,
+      parish: _parishController.text,
+      village: _villageController.text,
+      dateofbirth: _dobController.text,
+      telephonenumber1: _phoneNumber1Controller.text,
+      telephonenumber2: _phoneNumber2Controller.text,
+      nationalIDnumber: _nationalIdController.text,
+      nextofkin1: _nextOfKin1Controller.text,
+      nextofkin2: _nextOfKin2Controller.text,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(res),
+        backgroundColor: Colors.white, // Set Snackbar background color to white
+      ),
+    );
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Widget _buildTextField(TextEditingController controller, String labelText) {

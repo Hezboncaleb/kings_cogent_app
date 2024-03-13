@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kings_cogent_app/borrowers_page.dart';
-import 'package:kings_cogent_app/loan_management_page.dart';
+import 'package:kings_cogent_app/loans_page.dart';
 import 'package:kings_cogent_app/more_page.dart';
 import 'package:kings_cogent_app/settings_page.dart';
 import 'package:kings_cogent_app/savings_page.dart';
@@ -43,22 +42,11 @@ class SideBar extends StatelessWidget {
           ),
           const Divider(),
           _buildListTileWithArrow(
-            title: 'Borrowers',
+            title: 'Loans',
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const BorrowersPage()),
-              );
-            },
-          ),
-          const Divider(),
-          _buildListTileWithArrow(
-            title: 'Loan Management',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const LoanManagementPage()),
               );
             },
           ),
