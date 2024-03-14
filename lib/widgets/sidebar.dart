@@ -3,6 +3,7 @@ import 'package:kings_cogent_app/loans_page.dart';
 import 'package:kings_cogent_app/more_page.dart';
 import 'package:kings_cogent_app/settings_page.dart';
 import 'package:kings_cogent_app/savings_page.dart';
+import 'package:kings_cogent_app/payment_options_page.dart'; // Import the payment options page
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
@@ -10,7 +11,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.of(context).size.width * 0.6, // Increase the width
+      width: MediaQuery.of(context).size.width * 0.8, // Increase the width
       child: ListView(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
         children: <Widget>[
@@ -37,7 +38,7 @@ class SideBar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SavingsPage()),
+                MaterialPageRoute(builder: (context) => const SavingsPage()),
               );
             },
           ),
@@ -52,6 +53,8 @@ class SideBar extends StatelessWidget {
               );
             },
           ),
+          const Divider(),
+          _buildPaymentOptionsTile(context), // Add the payment options ListTile
           const Divider(),
           _buildListTileWithIcon(
             title: 'Settings',
@@ -87,6 +90,21 @@ class SideBar extends StatelessWidget {
       leading: Icon(icon), // Icon on the left side
       title: Text(title),
       onTap: () => onTap(),
+      trailing: const Icon(Icons.arrow_forward), // Arrow icon on the right side
+    );
+  }
+
+  // Method to build the ListTile for Payment Options
+  Widget _buildPaymentOptionsTile(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.payment), // Icon for payment options
+      title: const Text('Payment Options'),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PaymentsOptions()),
+        );
+      },
       trailing: const Icon(Icons.arrow_forward), // Arrow icon on the right side
     );
   }
