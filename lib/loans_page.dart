@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoansPage extends StatefulWidget {
   const LoansPage({Key? key}) : super(key: key);
@@ -28,6 +29,16 @@ class _LoansPageState extends State<LoansPage> {
     return history;
   }
 
+  Future<void> _saveDates() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (_startDate != null) {
+      prefs.setString('start_date', _startDate!.toIso8601String());
+    }
+    if (_endDate != null) {
+      prefs.setString('end_date', _endDate!.toIso8601String());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,31 +58,23 @@ class _LoansPageState extends State<LoansPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300], // Gray background color
-                    borderRadius: BorderRadius.circular(10), // Rounded edges
-                  ),
-                  child: InkWell(
-                    onTap: () async {
-                      final DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: _startDate ?? DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime.now(),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          _startDate = pickedDate;
-                        });
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'Start Date: ${_startDate?.toLocal() ?? 'Select start date'}',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0), // Add horizontal padding
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300], // Gray background color
+                      borderRadius: BorderRadius.circular(10), // Rounded edges
+                    ),
+                    child: InkWell(
+                      onTap: () => _selectStartDate(context),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Start Date: ${_startDate?.toLocal() ?? 'Select start date'}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
@@ -79,31 +82,23 @@ class _LoansPageState extends State<LoansPage> {
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300], // Gray background color
-                    borderRadius: BorderRadius.circular(10), // Rounded edges
-                  ),
-                  child: InkWell(
-                    onTap: () async {
-                      final DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: _endDate ?? DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime.now(),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          _endDate = pickedDate;
-                        });
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'End Date: ${_endDate?.toLocal() ?? 'Select end date'}',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0), // Add horizontal padding
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300], // Gray background color
+                      borderRadius: BorderRadius.circular(10), // Rounded edges
+                    ),
+                    child: InkWell(
+                      onTap: () => _selectEndDate(context),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'End Date: ${_endDate?.toLocal() ?? 'Select end date'}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
@@ -134,5 +129,41 @@ class _LoansPageState extends State<LoansPage> {
         ],
       ),
     );
+  }
+
+  Future<void> _selectStartDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _startDate ?? DateTime.now(),
+      firstDate: DateTime.now(), // Allow selecting future dates
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      setState(() {
+        _startDate = pickedDate;
+      });
+      _saveDates();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Start date saved')),
+      );
+    }
+  }
+
+  Future<void> _selectEndDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _endDate ?? DateTime.now(),
+      firstDate: DateTime.now(), // Allow selecting future dates
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      setState(() {
+        _endDate = pickedDate;
+      });
+      _saveDates();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('End date saved')),
+      );
+    }
   }
 }

@@ -75,10 +75,15 @@ class ProfileScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle logout logic
+                  // Navigate to another page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UserDetailsPage()),
+                  );
                 },
                 child: const Text(
-                  'Logout',
+                  'User Details',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -153,6 +158,23 @@ class ProfileScreen extends StatelessWidget {
           style: const TextStyle(fontSize: 16),
         ),
       ],
+    );
+  }
+}
+
+// Additional page for transaction history
+class UserDetailsPage extends StatelessWidget {
+  const UserDetailsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('User Details'),
+      ),
+      body: const Center(
+        child: Text('User Details Content'),
+      ),
     );
   }
 }
